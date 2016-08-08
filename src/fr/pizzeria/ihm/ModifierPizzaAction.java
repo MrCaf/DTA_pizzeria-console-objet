@@ -1,5 +1,6 @@
 package fr.pizzeria.ihm;
 
+import java.util.List;
 import java.util.Scanner;
 
 import fr.pizzeria.exception.UpdatePizzaException;
@@ -22,14 +23,14 @@ public class ModifierPizzaAction extends Action {
 
 		System.out.println("Modifier une pizza");
 		// on affiche la liste des pizzas
-		Pizza[] pizza = this.stockage.findAllPizzas();
+		List<Pizza> pizza = this.stockage.findAllPizzas();
 		Action lister = new ListerPizzaAction(stockage);
 		lister.execute();
 		// choix de la pizza
 		do {
 			System.out.println("Choisissez une pizza (ID) :");
 			id = sc.nextInt();
-		} while (id < 0 || id >= pizza.length);
+		} while (id < 0 || id >= pizza.size());
 		// saisie des nouvelles informations
 		System.out.println("Entrez le nouveau code :");
 		String code = sc.next();
@@ -44,9 +45,9 @@ public class ModifierPizzaAction extends Action {
 			e.printStackTrace();
 		}
 		// mise à jour des informations de la pizza
-		pizza[id].setCode(code);
-		pizza[id].setNom(nom);
-		pizza[id].setPrix(prix);
+		pizza.get(id).setCode(code);
+		pizza.get(id).setNom(nom);
+		pizza.get(id).setPrix(prix);
 	}
 
 }

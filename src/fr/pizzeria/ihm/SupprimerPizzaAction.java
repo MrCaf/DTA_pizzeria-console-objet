@@ -1,5 +1,6 @@
 package fr.pizzeria.ihm;
 
+import java.util.List;
 import java.util.Scanner;
 
 import fr.pizzeria.model.Pizza;
@@ -21,16 +22,16 @@ public class SupprimerPizzaAction extends Action {
 
 		System.out.println("Supprimer une pizza");
 		// on affiche la liste des pizzas
-		Pizza[] pizza = this.stockage.findAllPizzas();
+		List<Pizza> pizza = this.stockage.findAllPizzas();
 		Action lister = new ListerPizzaAction(stockage);
 		lister.execute();
 		// choix de la pizza
 		do {
 			System.out.println("Choisissez une pizza (ID) :");
 			id = sc.nextInt();
-		} while (id < 0 || id >= pizza.length);
+		} while (id < 0 || id >= pizza.size());
 		// suppression de la pizza
-		stockage.supprPizza(pizza[id]);
+		stockage.supprPizza(pizza.get(id));
 	}
 
 }

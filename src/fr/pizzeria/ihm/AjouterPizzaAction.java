@@ -28,7 +28,7 @@ public class AjouterPizzaAction extends Action {
 		double prix = sc.nextDouble();
 		// création et sauvegarde de la nouvelle pizza
 		try {
-			stockage.savePizza(new Pizza(0, code, nom, prix));
+			stockage.savePizza(new Pizza(code, nom, prix));
 		} catch (SavePizzaException e) {
 			e.getMessage();
 			e.printStackTrace();

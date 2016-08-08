@@ -1,12 +1,14 @@
 package fr.pizzeria.service;
 
+import java.util.List;
+
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 
 public interface Stockage {
 
-	Pizza[] findAllPizzas(); // récupération de la liste de pizzas
+	List<Pizza> findAllPizzas(); // récupération de la liste de pizzas
 
 	void savePizza(Pizza newPizza) throws SavePizzaException; // ajout d'une
 																// pizza dans la

@@ -1,6 +1,7 @@
 package fr.pizzeria.service;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.UpdatePizzaException;
@@ -8,13 +9,21 @@ import fr.pizzeria.model.Pizza;
 
 public class StockageTableau implements Stockage {
 
-	public Pizza[] listePizza = { new Pizza(0, "PEP", "Pépéroni", 12.50), new Pizza(1, "MAR", "Margherita", 14.00),
-			new Pizza(2, "REI", "La Reine", 11.50), new Pizza(3, "FRO", "La 4 fromages", 12.00),
-			new Pizza(4, "CAN", "La cannibale", 12.50), new Pizza(5, "SAV", "La savoyarde", 13.00),
-			new Pizza(6, "ORI", "L'orientale", 13.50), new Pizza(7, "IND", "L'indienne", 14.00) };
+	public List<Pizza> listePizza = new ArrayList<Pizza>();
+
+	public StockageTableau() {
+		listePizza.add(new Pizza("PEP", "Pépéroni", 12.50));
+		listePizza.add(new Pizza("MAR", "Margherita", 14.00));
+		listePizza.add(new Pizza("REI", "La Reine", 11.50));
+		listePizza.add(new Pizza("FRO", "La 4 fromages", 12.00));
+		listePizza.add(new Pizza("CAN", "La cannibale", 12.50));
+		listePizza.add(new Pizza("SAV", "La savoyarde", 13.00));
+		listePizza.add(new Pizza("ORI", "L'orientale", 13.50));
+		listePizza.add(new Pizza("IND", "L'indienne", 14.00));
+	}
 
 	@Override
-	public Pizza[] findAllPizzas() {
+	public List<Pizza> findAllPizzas() {
 		return listePizza;
 	}
 
@@ -25,14 +34,7 @@ public class StockageTableau implements Stockage {
 			SavePizzaException saveEx = new SavePizzaException("Code invalide");
 			throw saveEx;
 		}
-		// initialisation de l'id
-		newPizza.setId(listePizza[listePizza.length - 1].getId() + 1);
-		// création d'une liste temporaire et copie de l'ancienne
-		Pizza[] newListe = Arrays.copyOf(listePizza, listePizza.length + 1);
-		// ajout de la nouvelle pizza
-		newListe[newListe.length - 1] = newPizza;
-		// on remplace l'ancienne liste par la nouvelle
-		listePizza = newListe;
+		listePizza.add(newPizza);
 	}
 
 	@Override
@@ -42,31 +44,15 @@ public class StockageTableau implements Stockage {
 			UpdatePizzaException saveEx = new UpdatePizzaException("Code invalide");
 			throw saveEx;
 		}
-		listePizza[id].setCode(code);
-		listePizza[id].setNom(nom);
-		listePizza[id].setPrix(prix);
-
+		Pizza p = listePizza.get(id);
+		p.setCode(code);
+		p.setNom(nom);
+		p.setPrix(prix);
 	}
 
 	@Override
 	public void supprPizza(Pizza oldPizza) {
-		int newIndex;
-		// création d'une liste temporaire
-		Pizza[] newListe = new Pizza[listePizza.length - 1];
-		// copie de l'ancienne liste sans la pizza supprimée
-		for (int i = 0; i < listePizza.length - 1; i++) {
-			if (i >= oldPizza.getId()) {
-				newIndex = i + 1;
-			} // on modifie l'index pour passer la pizza à modifier
-			else {
-				newIndex = i;
-			}
-			newListe[i] = listePizza[newIndex];
-			// mise à jour des id
-			newListe[i].setId(i);
-		}
-		// on remplace l'ancienne liste par la nouvelle
-		listePizza = newListe;
+		listePizza.remove(oldPizza);
 	}
 
 }

@@ -2,7 +2,7 @@ package fr.pizzeria.model;
 
 public class Pizza {
 
-	protected int id;
+	// protected int id;
 	private String code;
 	private String nom;
 	private double prix;
@@ -15,8 +15,8 @@ public class Pizza {
 	 * public Pizza(String unNom, double unPrix) { this.nom = unNom; this.prix =
 	 * unPrix; }
 	 */
-	public Pizza(int id, String code, String nom, double prix) {
-		this.id = id;
+	public Pizza(String code, String nom, double prix) {
+		// this.id = id;
 		this.code = code;
 		this.nom = nom;
 		this.prix = prix;
@@ -32,14 +32,11 @@ public class Pizza {
 		return unPrix * 2;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	/*
+	 * public int getId() { return id; }
+	 * 
+	 * public void setId(int id) { this.id = id; }
+	 */
 	public String getCode() {
 		return code;
 	}
