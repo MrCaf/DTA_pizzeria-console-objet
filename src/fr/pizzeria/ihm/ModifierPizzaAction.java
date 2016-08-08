@@ -2,6 +2,7 @@ package fr.pizzeria.ihm;
 
 import java.util.Scanner;
 
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 import fr.pizzeria.service.Stockage;
 
@@ -36,6 +37,12 @@ public class ModifierPizzaAction extends Action {
 		String nom = sc.next();
 		System.out.println("Entrez le nouveau prix :");
 		double prix = sc.nextDouble();
+		try {
+			stockage.updatePizza(id, code, nom, prix);
+		} catch (UpdatePizzaException e) {
+			e.getMessage();
+			e.printStackTrace();
+		}
 		// mise à jour des informations de la pizza
 		pizza[id].setCode(code);
 		pizza[id].setNom(nom);

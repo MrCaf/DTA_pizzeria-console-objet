@@ -2,6 +2,8 @@ package fr.pizzeria.service;
 
 import java.util.Arrays;
 
+import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 
 public class StockageTableau implements Stockage {
@@ -17,7 +19,12 @@ public class StockageTableau implements Stockage {
 	}
 
 	@Override
-	public void savePizza(Pizza newPizza) {
+	public void savePizza(Pizza newPizza) throws SavePizzaException {
+		// si le code est inférieur à 3 caractères, on lance une exception
+		if (newPizza.getCode().length() != 3) {
+			SavePizzaException saveEx = new SavePizzaException("Code invalide");
+			throw saveEx;
+		}
 		// initialisation de l'id
 		newPizza.setId(listePizza[listePizza.length - 1].getId() + 1);
 		// création d'une liste temporaire et copie de l'ancienne
@@ -26,6 +33,19 @@ public class StockageTableau implements Stockage {
 		newListe[newListe.length - 1] = newPizza;
 		// on remplace l'ancienne liste par la nouvelle
 		listePizza = newListe;
+	}
+
+	@Override
+	public void updatePizza(int id, String code, String nom, double prix) throws UpdatePizzaException {
+		// si le code est inférieur à 3 caractères, on lance une exception
+		if (code.length() != 3) {
+			UpdatePizzaException saveEx = new UpdatePizzaException("Code invalide");
+			throw saveEx;
+		}
+		listePizza[id].setCode(code);
+		listePizza[id].setNom(nom);
+		listePizza[id].setPrix(prix);
+
 	}
 
 	@Override
