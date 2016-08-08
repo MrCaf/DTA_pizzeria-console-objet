@@ -33,21 +33,31 @@ public class StockageTableau implements Stockage {
 		if (newPizza.getCode().length() != 3) {
 			SavePizzaException saveEx = new SavePizzaException("Code invalide");
 			throw saveEx;
+		} else {
+			for (Pizza p : listePizza) {
+				if (newPizza.getCode() == p.getCode()) {
+					SavePizzaException saveEx = new SavePizzaException("Code déjà utilisé");
+					throw saveEx;
+				}
+			}
 		}
 		listePizza.add(newPizza);
 	}
 
 	@Override
-	public void updatePizza(int id, String code, String nom, double prix) throws UpdatePizzaException {
+	public void updatePizza(Pizza pizza, String code, String nom, double prix) throws UpdatePizzaException {
 		// si le code est inférieur à 3 caractères, on lance une exception
 		if (code.length() != 3) {
 			UpdatePizzaException saveEx = new UpdatePizzaException("Code invalide");
 			throw saveEx;
-		}
-		Pizza p = listePizza.get(id);
-		p.setCode(code);
-		p.setNom(nom);
-		p.setPrix(prix);
+		} /*
+			 * else { for (Pizza p : listePizza) { if (pizza.getCode() ==
+			 * p.getCode()) { UpdatePizzaException saveEx = new
+			 * UpdatePizzaException("Code déjà utilisé"); throw saveEx; } } }
+			 */
+		pizza.setCode(code);
+		pizza.setNom(nom);
+		pizza.setPrix(prix);
 	}
 
 	@Override

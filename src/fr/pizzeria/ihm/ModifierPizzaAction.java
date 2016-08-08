@@ -39,15 +39,11 @@ public class ModifierPizzaAction extends Action {
 		System.out.println("Entrez le nouveau prix :");
 		double prix = sc.nextDouble();
 		try {
-			stockage.updatePizza(id, code, nom, prix);
+			stockage.updatePizza(pizza.get(id), code, nom, prix);
 		} catch (UpdatePizzaException e) {
 			e.getMessage();
 			e.printStackTrace();
 		}
-		// mise à jour des informations de la pizza
-		pizza.get(id).setCode(code);
-		pizza.get(id).setNom(nom);
-		pizza.get(id).setPrix(prix);
 	}
 
 }

@@ -14,10 +14,10 @@ public interface Stockage {
 																// pizza dans la
 																// liste
 
-	void updatePizza(int id, String code, String nom, double prix) throws UpdatePizzaException; // modification
-																								// d'une
-																								// pizza
-																								// existante
+	void updatePizza(Pizza pizza, String code, String nom, double prix) throws UpdatePizzaException; // modification
+	// d'une
+	// pizza
+	// existante
 
 	void supprPizza(Pizza oldPizza); // retrait d'une pizza de la liste
 
